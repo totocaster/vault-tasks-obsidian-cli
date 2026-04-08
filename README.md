@@ -5,7 +5,7 @@
 [![Go Version](https://img.shields.io/github/go-mod/go-version/totocaster/vault-tasks-obsidian-cli)](https://go.dev/)
 [![License](https://img.shields.io/github/license/totocaster/vault-tasks-obsidian-cli)](LICENSE)
 
-`vault-tasks` is a read-only companion CLI for the Vault Tasks Obsidian plugin.
+`vault-tasks` is a read-only companion CLI for the [Vault Tasks Obsidian plugin](https://github.com/totocaster/vault-tasks-obsidian).
 
 It reads the current vault, Obsidian app settings, and the plugin's saved settings, then renders the same grouped task view that the plugin shows inside Obsidian. The output is optimized for both humans and AI agents: readable by default, deterministic when you need JSON, and intentionally scoped to the plugin's worldview instead of inventing a separate task system.
 
@@ -24,7 +24,7 @@ It reads the current vault, Obsidian app settings, and the plugin's saved settin
 
 ## What It Does Not Do
 
-- it does not replace the Obsidian plugin
+- it does not replace the [Vault Tasks Obsidian plugin](https://github.com/totocaster/vault-tasks-obsidian)
 - it does not maintain its own task database
 - it does not try to be a generic Markdown task manager
 - it does not write task state back to notes in the current implementation

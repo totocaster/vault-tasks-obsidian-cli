@@ -282,7 +282,8 @@ Flags:
 Description:
   Companion CLI for the Vault Tasks Obsidian plugin. It reads the current
   vault's Obsidian app settings and the plugin's saved settings, then renders
-  the same grouped task view for terminals, scripts, and AI agents.`)
+  the same grouped task view for terminals, scripts, and AI agents.
+  Plugin repo: https://github.com/totocaster/vault-tasks-obsidian`)
 }
 
 func versionString() string {
