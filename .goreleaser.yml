@@ -1,0 +1,122 @@
+version: 2
+
+project_name: vault-tasks
+
+env:
+  - GO111MODULE=on
+  - CGO_ENABLED=0
+
+before:
+  hooks:
+    - go mod tidy
+    - go test ./...
+
+builds:
+  - id: vault-tasks
+    main: .
+    binary: vault-tasks
+    ldflags:
+      - -s -w
+      - -X main.version={{.Version}}
+      - -X main.commit={{.Commit}}
+      - -X main.date={{.Date}}
+    goos:
+      - darwin
+      - linux
+    goarch:
+      - amd64
+      - arm64
+
+archives:
+  - id: vault-tasks-archive
+    ids:
+      - vault-tasks
+    name_template: >-
+      vault-tasks_
+      {{- .Version }}_
+      {{- title .Os }}_
+      {{- if eq .Arch "amd64" }}x86_64
+      {{- else if eq .Arch "386" }}i386
+      {{- else }}{{ .Arch }}{{ end }}
+    files:
+      - LICENSE
+      - README.md
+
+checksum:
+  name_template: checksums.txt
+  algorithm: sha256
+
+snapshot:
+  version_template: "{{ .Tag }}-dev"
+
+release:
+  github:
+    owner: totocaster
+    name: vault-tasks-obsidian-cli
+  mode: replace
+  header: |
+    ## vault-tasks {{ .Version }} ({{ .Date }})
+
+  footer: |
+    ---
+
+    **Full Changelog**: https://github.com/totocaster/vault-tasks-obsidian-cli/compare/{{ .PreviousTag }}...{{ .Tag }}
+
+    ## Installation
+
+    ### Homebrew (macOS/Linux)
+    ```bash
+    brew tap totocaster/tap
+    brew install vault-tasks
+    ```
+
+    ### Direct Download
+    Grab the archive for your platform from the assets below.
+
+changelog:
+  sort: asc
+  use: github
+  filters:
+    exclude:
+      - '^docs:'
+      - '^test:'
+      - '^ci:'
+      - '^chore:'
+      - '^style:'
+      - 'typo'
+      - 'Merge pull request'
+      - 'Merge branch'
+
+  groups:
+    - title: 'Features'
+      regexp: '^.*?feat(\([[:word:]]+\))??!?:.+$'
+      order: 0
+    - title: 'Bug Fixes'
+      regexp: '^.*?fix(\([[:word:]]+\))??!?:.+$'
+      order: 1
+    - title: 'Documentation'
+      regexp: '^.*?docs(\([[:word:]]+\))??!?:.+$'
+      order: 2
+    - title: 'Other Changes'
+      order: 999
+
+brews:
+  - name: vault-tasks
+    repository:
+      owner: totocaster
+      name: homebrew-tap
+      branch: main
+      token: "{{ .Env.HOMEBREW_TAP_TOKEN }}"
+    commit_author:
+      name: goreleaserbot
+      email: goreleaserbot@users.noreply.github.com
+    commit_msg_template: "Brew formula update for {{ .ProjectName }} version {{ .Tag }}"
+    directory: Formula
+    homepage: "https://github.com/totocaster/vault-tasks-obsidian-cli"
+    description: "Companion CLI for the Vault Tasks Obsidian plugin"
+    license: "MIT"
+    install: |
+      bin.install "vault-tasks"
+    test: |
+      assert_match version.to_s, shell_output("#{bin}/vault-tasks --version")
+      assert_match "sections", shell_output("#{bin}/vault-tasks --help")

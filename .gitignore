@@ -1,0 +1,6 @@
+/vault-tasks
+/dist/
+*.out
+*.test
+coverage.out
+.DS_Store
