@@ -142,26 +142,6 @@ Build a local binary:
 go build -o vault-tasks .
 ```
 
-## Release Flow
-
-This repo follows the same release pattern as other shipped Go CLIs in this workspace:
-
-- CI runs on pushes and pull requests via `.github/workflows/ci.yml`
-- a GitHub release is cut when a `v*` tag is pushed via `.github/workflows/release.yml`
-- GoReleaser builds archives for macOS/Linux amd64 + arm64
-- GoReleaser updates the `totocaster/homebrew-tap` formula using `HOMEBREW_TAP_TOKEN`
-
-Release:
-
-```bash
-git tag v0.1.0
-git push origin v0.1.0
-```
-
-Required GitHub secret:
-
-- `HOMEBREW_TAP_TOKEN`
-
 ## Testing Notes
 
 The codebase includes unit and fixture-based integration tests covering:
