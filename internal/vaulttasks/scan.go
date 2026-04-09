@@ -500,9 +500,6 @@ func extractDeferredUntil(content string) *string {
 
 	value := extractFrontmatterValue(frontmatter, FrontmatterDeferredKey)
 	if value == "" {
-		value = extractFrontmatterValue(frontmatter, FrontmatterLegacyDeferredKey)
-	}
-	if value == "" {
 		return nil
 	}
 

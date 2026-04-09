@@ -10,9 +10,8 @@ const (
 	TaskStatusInProgress = "/"
 	TaskStatusTodo       = " "
 
-	FrontmatterDeferredKey       = "deferred-until"
-	FrontmatterLegacyDeferredKey = "deffered-until"
-	FrontmatterHiddenKey         = "hide-from-vault-tasks"
+	FrontmatterDeferredKey = "deferred-until"
+	FrontmatterHiddenKey   = "hide-from-vault-tasks"
 )
 
 type TaskFilter string

@@ -10,14 +10,14 @@ import (
 
 func TestExtractFrontmatterFlags(t *testing.T) {
 	current := "---\ndeferred-until: 2026-04-10\n---\n"
-	legacy := "---\ndeffered-until: '2026-04-11'\n---\n"
+	incorrect := "---\ndeferred_until: '2026-04-11'\n---\n"
 	hidden := "---\nhide-from-vault-tasks: yes\n---\n"
 
 	if value := extractDeferredUntil(current); value == nil || *value != "2026-04-10" {
 		t.Fatalf("unexpected deferred date from current key: %#v", value)
 	}
-	if value := extractDeferredUntil(legacy); value == nil || *value != "2026-04-11" {
-		t.Fatalf("unexpected deferred date from legacy key: %#v", value)
+	if value := extractDeferredUntil(incorrect); value != nil {
+		t.Fatalf("expected incorrect key to be ignored, got %#v", value)
 	}
 	if !extractHiddenFromTaskList(hidden) {
 		t.Fatal("expected hidden flag to be true")

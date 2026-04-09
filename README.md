@@ -17,7 +17,6 @@ It reads the current vault, Obsidian app settings, and the plugin's saved settin
 - applies the plugin's note grouping, section grouping, pinned notes, task filtering, and sorting rules
 - honors note-level frontmatter used by the plugin:
   - `deferred-until: YYYY-MM-DD`
-  - `deffered-until: YYYY-MM-DD`
   - `hide-from-vault-tasks: true`
 - can include plugin-style related-note backlink context
 - can emit either human-readable text, summary text, or structured JSON
